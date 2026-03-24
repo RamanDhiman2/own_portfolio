@@ -15,10 +15,13 @@
 
     <style>
         :root {
-            --bg: #070B09;
-            --text-light: #f5f5f5;
-            --accent: #00FF88;
-            /* Aesthetic Neon Mint Green */
+            --bg: #020617;
+            /* Oceanic dark */
+            --text-light: #f8fafc;
+            --accent: #14b8a6;
+            /* Premium Teal */
+            --accent2: #8b5cf6;
+            /* Vibrant Violet */
         }
 
         * {
@@ -31,9 +34,11 @@
 
         html,
         body {
-            overflow-x: hidden;
             max-width: 100%;
             width: 100%;
+            overflow-x: hidden;
+            /* Lenis scroll setup: prevent overscroll glow */
+            overscroll-behavior: none;
         }
 
         body {
@@ -43,13 +48,21 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        #smooth-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+            overflow-y: hidden;
+            /* height: 100vh; */
+        }
+
         h1,
         h2,
         h3 {
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: -1px;
+            font-weight: 400;
+            letter-spacing: 4px;
         }
 
         /* --- PARTICLES --- */
@@ -76,22 +89,29 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: var(--accent);
+            background: var(--bg);
             z-index: 100000;
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 2vw;
-            color: #000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            clip-path: circle(150% at 50% 50%);
         }
 
         .preloader-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 5vw;
-            line-height: 1;
-            font-weight: 800;
+            font-family: 'Inter', sans-serif;
+            font-size: 1vw;
+            letter-spacing: 12px;
+            text-indent: 12px;
+            /* Fixed alignment for letter-spacing */
+            font-weight: 500;
             overflow: hidden;
             display: flex;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
         .preloader-text span {
@@ -100,9 +120,11 @@
 
         .preloader-counter {
             font-family: 'Montserrat', sans-serif;
-            font-size: 15vw;
-            line-height: 0.8;
-            font-weight: 800;
+            font-size: 10vw;
+            line-height: 1;
+            font-weight: 900;
+            color: var(--accent);
+            text-shadow: 0 0 40px rgba(0, 229, 255, 0.2);
         }
 
         /* 1. Custom Smooth Cursor */
@@ -185,13 +207,14 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 10vw, 12rem);
-            line-height: 0.95;
+            font-size: clamp(2rem, 8vw, 8rem);
+            line-height: 1.1;
             text-align: center;
             mix-blend-mode: difference;
             color: #fff;
-            letter-spacing: -3px;
-            font-weight: 900;
+            letter-spacing: 12px;
+            text-indent: 12px;
+            font-weight: 300;
         }
 
         /* Reveal animation lines inside hero H1 */
@@ -206,36 +229,113 @@
 
         .hero .subtitle {
             margin-top: 2rem;
-            font-size: 1rem;
+            font-size: clamp(1.2rem, 3.5vw, 2.2rem);
             font-weight: 500;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             text-transform: uppercase;
             text-align: center;
-            overflow: hidden;
-            opacity: 0.7;
+            color: var(--accent);
+            opacity: 1;
+            min-height: 2.5rem;
+            /* Prevent layout jumping */
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 0.15em;
+            height: 1em;
+            background-color: var(--accent);
+            margin-left: 5px;
+            animation: blink-caret 0.8s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-section {
+            padding: 15vh 5vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .about-header {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 5rem);
+            color: var(--text-light);
+            margin-bottom: 2vh;
+            text-transform: uppercase;
+            font-weight: 700;
+            /* Bolded for impact */
+            letter-spacing: 6px;
+        }
+
+        .about-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 1.5vw, 1.8rem);
+            line-height: 1.8;
+            color: #a0a0a0;
+            max-width: 900px;
+            font-weight: 300;
+        }
+
+        .about-text .highlight {
+            color: var(--accent);
+            font-weight: 600;
         }
 
         /* --- MARQUEE --- */
         .marquee-wrapper {
             width: 100%;
             padding: 3vh 0;
-            background: var(--accent);
-            color: #000;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #fff;
+            /* White looks more premium over dynamic gradients */
             transform: rotate(-2deg) scale(1.05);
             margin: 10vh 0;
             overflow: hidden;
             display: flex;
+            box-shadow: 0 0 40px rgba(20, 184, 166, 0.2);
         }
 
         .marquee-content {
             white-space: nowrap;
             display: flex;
             font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
+            font-size: 2rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 6px;
             line-height: 1.2;
-            font-weight: 800;
+            font-weight: 600;
+            /* Bolder for contrast against gradient */
             align-items: center;
         }
 
@@ -257,10 +357,14 @@
         .list-header {
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            /* Bolded for impact */
             margin-bottom: 5vh;
-            color: #888;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
+            color: var(--text-light);
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
         }
 
         .list-item {
@@ -274,18 +378,21 @@
         }
 
         .list-item h2 {
-            font-size: clamp(3rem, 6vw, 6rem);
-            color: #555;
+            font-size: clamp(2rem, 4.5vw, 5rem);
+            color: #888;
+            font-weight: 300;
             transition: color 0.4s, transform 0.4s;
             overflow: hidden;
-            letter-spacing: -2px;
+            letter-spacing: 2px;
             white-space: nowrap;
             transform-origin: left;
         }
 
         .list-item p {
-            font-size: 1.2rem;
-            color: #888;
+            font-size: 1.1rem;
+            color: #666;
+            letter-spacing: 1px;
+            font-weight: 300;
             transition: color 0.4s;
         }
 
@@ -298,18 +405,29 @@
         .preview-btn {
             display: inline-block;
             margin-left: 15px;
-            padding: 5px 15px;
+            padding: 12px 28px;
             border: 1px solid var(--accent);
-            border-radius: 20px;
+            background: rgba(0, 229, 255, 0.05);
+            /* Subtle inner glow */
+            border-radius: 30px;
             color: var(--accent);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            /* Bold text */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+            /* Attractive outer glow */
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .preview-btn:hover {
             background: var(--accent);
             color: #000;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+            /* Intense aesthetic hover glow */
+            transform: translateY(-3px) scale(1.02);
         }
 
         /* 4. Sticky Stacking Cards Pattern */
@@ -321,7 +439,11 @@
         }
 
         .stack-header {
-            font-size: clamp(3rem, 8vw, 8rem);
+            font-size: clamp(2rem, 5vw, 6rem);
+            font-weight: 700;
+            /* Bolded for impact */
+            letter-spacing: 8px;
+            text-indent: 8px;
             text-align: center;
             margin-bottom: 10vh;
             color: var(--text-light);
@@ -329,46 +451,22 @@
         }
 
         .card {
-            position: sticky;
-            top: 15vh;
             width: 100%;
-            height: 60vh;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: auto;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 5vw;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            padding: 5vw 0;
+            /* Remove side padding so it spans correctly */
             transform-origin: top center;
-            overflow: hidden;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            /* Optional divider to separate categories cleanly */
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
-            pointer-events: none;
-        }
-
-        /* Adjust stack positioning */
-        .card:nth-child(n+2) {
-            top: 13vh;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .card:nth-child(n+3) {
-            top: 16vh;
-            background: rgba(255, 255, 255, 0.07);
+        .card:last-child {
+            border-bottom: none;
         }
 
         .card-content {
@@ -381,40 +479,86 @@
         }
 
         .card h3 {
-            font-size: clamp(2rem, 5vw, 5rem);
+            font-size: clamp(1.5rem, 4vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 4px;
             color: var(--accent);
             margin-bottom: 1rem;
             overflow: hidden;
         }
 
         .card p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #bbb;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #999;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
-        .sw-item {
-            display: inline-flex;
+        /* --- PROGRESS BARS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 40px;
+            text-align: left;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .skill-item {
+            width: 100%;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin-right: 15px;
-            margin-bottom: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(5px);
-            padding: 8px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            font-size: 0.95rem;
+            margin-bottom: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
             color: #ddd;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .sw-item:hover {
-            background: rgba(0, 255, 136, 0.1);
-            border-color: rgba(0, 255, 136, 0.3);
-            transform: translateY(-5px) scale(1.05);
+        .skill-info .skill-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-info .sw-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .skill-info .skill-pct {
             color: var(--accent);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 10px;
+            width: 0;
+            /* Animated by GSAP */
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.4);
+            position: relative;
         }
 
         .sw-icon {
@@ -424,30 +568,9 @@
             transition: transform 0.4s ease;
         }
 
-        .sw-item:hover .sw-icon {
-            transform: rotate(5deg);
-        }
-
-        .card-img-wrapper {
-            width: 50%;
-            height: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 120%;
-            /* Extra height for inner parallax */
-            object-fit: cover;
-            transform: translateY(-10%);
-            /* Start offset */
-        }
-
         /* 5. 3D Footer Typography */
         .footer-sec {
-            height: 160vh;
+            height: 190vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -459,15 +582,17 @@
         }
 
         .footer-text {
-            font-size: clamp(4rem, 12vw, 15rem);
+            font-size: clamp(2rem, 6vw, 8rem);
             text-align: center;
-            line-height: 0.9;
+            line-height: 1.2;
             transform-style: preserve-3d;
             opacity: 1;
             transform-origin: center center;
             margin: 0 auto;
-            font-weight: 900;
-            letter-spacing: -2px;
+            font-weight: 800;
+            /* Dramatic bold footer */
+            letter-spacing: 15px;
+            text-indent: 15px;
             text-transform: uppercase;
             color: var(--text-light);
             perspective: 1000px;
@@ -480,27 +605,26 @@
         }
 
         .contact-label {
-            font-size: 1rem;
+            font-size: 1.5rem;
+            /* Significantly enlarged */
             letter-spacing: 12px;
+            text-indent: 12px;
             color: var(--accent);
             margin-bottom: 3rem;
             font-weight: 700;
+            /* Bolded */
             text-transform: uppercase;
+            text-align: center;
         }
 
         .contact-description {
-            font-size: 1.4rem;
-            max-width: 800px;
+            font-size: 1.2rem;
+            max-width: 600px;
             margin: 3rem auto 6rem auto;
             opacity: 0.5;
-            line-height: 1.4;
-            letter-spacing: 0.5px;
-        }
-
-        .contact-btn-wrapper {
-            margin-top: 8vh;
-            perspective: 500px;
-            transform-style: preserve-3d;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            font-weight: 300;
         }
 
         .contact-btn {
@@ -509,9 +633,10 @@
             border: 1px solid #fff;
             background: transparent;
             color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
+            font-weight: 500;
             transition: color 0.3s;
             display: inline-flex;
             pointer-events: auto;
@@ -546,20 +671,8 @@
             width: 100%;
             max-width: 1000px;
             margin-top: 5vh;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            padding: 80px 60px;
-            border-radius: 50px;
-            transform-style: preserve-3d;
-            transform: translateZ(30px) perspective(1500px);
-            transition: box-shadow 0.6s ease, border-color 0.6s ease, background 0.6s ease;
-        }
-
-        .contact-container:hover {
-            box-shadow: 0 15px 50px rgba(0, 255, 136, 0.15);
-            border-color: rgba(0, 255, 136, 0.3);
+            padding: 40px 0;
+            /* Reduced padding since it's no longer a card */
         }
 
         .input-group {
@@ -593,6 +706,8 @@
             width: 100%;
             padding: 20px 25px;
             font-size: 1rem;
+            letter-spacing: 1px;
+            font-weight: 300;
             color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -633,6 +748,9 @@
             pointer-events: none;
             transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: 'Inter', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
             z-index: 2;
         }
 
@@ -644,6 +762,7 @@
             top: -12px;
             left: 15px;
             font-size: 0.75rem;
+            letter-spacing: 4px;
             color: var(--accent);
             background: var(--bg);
             padding: 0 10px;
@@ -679,9 +798,9 @@
         .social-link {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 4px;
             opacity: 0.6;
             transition: opacity 0.4s ease, color 0.4s ease;
         }
@@ -691,10 +810,11 @@
             color: var(--accent);
         }
 
+
         .footer-copy {
             font-size: 0.7rem;
             opacity: 0.4;
-            letter-spacing: 1px;
+            letter-spacing: 4px;
         }
 
         @media (max-width: 768px) {
@@ -708,6 +828,7 @@
                 justify-content: center;
                 gap: 1.5rem;
             }
+
         }
 
         /* --- NAVIGATION --- */
@@ -736,8 +857,8 @@
             color: var(--text-light);
             text-decoration: none;
             text-transform: uppercase;
-            font-weight: 500;
-            letter-spacing: 2px;
+            font-weight: 400;
+            letter-spacing: 4px;
             position: relative;
             padding: 5px 10px;
             transition: color 0.4s ease, filter 0.4s ease;
@@ -780,8 +901,8 @@
             }
 
             .nav-link {
-                font-size: 0.7rem;
-                letter-spacing: 1px;
+                font-size: 0.5rem;
+                letter-spacing: 2px;
                 padding: 5px;
             }
         }
@@ -803,18 +924,35 @@
             filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5));
         }
 
+
         /* --- LIGHT MODE OVERRIDES --- */
         html.light-mode {
-            --bg: #e5e5e5;
-            --text-light: #111;
-            --accent: #008f4c;
-            /* Darker green for visibility in light mode */
+            --bg: #f8fafc;
+            --text-light: #0f172a;
+            --accent: #10b981;
+            /* Emerald Green */
+            --accent2: #f59e0b;
+            /* Amber */
         }
 
         html.light-mode .nav-wrapper {
             background: rgba(255, 255, 255, 0.5);
             border-color: rgba(255, 255, 255, 0.4);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+
+        html.light-mode .about-section {
+            background: rgba(40, 40, 40, 0.04);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        html.light-mode .about-header {
+            color: #111;
+        }
+
+        html.light-mode .about-text {
+            color: #555;
         }
 
         html.light-mode .list-section {
@@ -844,17 +982,13 @@
         }
 
         html.light-mode .card {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            background: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: none;
         }
 
-        html.light-mode .card:nth-child(n+2) {
-            background: rgba(255, 255, 255, 0.55);
-        }
-
-        html.light-mode .card:nth-child(n+3) {
-            background: rgba(255, 255, 255, 0.6);
+        html.light-mode .card:last-child {
+            border-bottom: none;
         }
 
         html.light-mode .card h3 {
@@ -865,10 +999,13 @@
             color: #444;
         }
 
-        html.light-mode .sw-item {
+        html.light-mode .skill-info {
+            color: #333;
+        }
+
+        html.light-mode .progress-bar {
             background: rgba(0, 0, 0, 0.05);
             border-color: rgba(0, 0, 0, 0.1);
-            color: #222;
         }
 
         html.light-mode .contact-btn {
@@ -881,8 +1018,8 @@
         }
 
         html.light-mode .contact-container {
-            background: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.4);
+            background: transparent;
+            border-color: transparent;
         }
 
         html.light-mode .input-group input,
@@ -933,42 +1070,188 @@
                 cursor: auto !important;
             }
 
-            .card {
-                height: auto;
-                min-height: 85vh;
-                padding: 8vw 5vw;
-                justify-content: center;
-                gap: 30px;
+            /* Container padding normalization */
+            .about-section,
+            .list-section,
+            .stack-section,
+            .footer-sec {
+                padding-left: 6vw;
+                padding-right: 6vw;
             }
 
-            .card-content {
-                width: 100%;
+            /* About section mobile refinements */
+            .about-header {
+                font-size: clamp(2rem, 8vw, 2.5rem);
                 text-align: center;
+                letter-spacing: 2px;
+                line-height: 1.2;
             }
 
+            .about-text {
+                font-size: 1.1rem;
+                text-align: center;
+                padding: 0 10px;
+            }
+
+            /* Projects list mobile refinements */
             .list-item {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
+                gap: 20px;
+                padding: 5vh 0;
+            }
+
+            .list-item h2 {
+                white-space: normal;
+                /* Allow text wrapping on very small screens */
+                font-size: clamp(1.8rem, 7vw, 2.5rem);
+                line-height: 1.2;
+                letter-spacing: 1px;
             }
 
             .list-item p {
                 font-size: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
             }
 
+            /* Premium Mobile Buttons */
             .preview-btn {
                 margin-left: 0;
                 margin-top: 10px;
-                display: inline-block;
+                display: block;
+                width: 100%;
+                /* Full width interactive touch area */
+                text-align: center;
+                padding: 15px;
+                font-size: 0.9rem;
             }
 
+            /* Expertise Mobile refinements */
+            .card {
+                padding: 10vh 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .card-content {
+                width: 100%;
+                text-align: left;
+                /* Keep left aligned for readability on mobile grids */
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            /* Footer Mobile refinements */
             .footer-text {
                 font-size: clamp(3rem, 15vw, 6rem);
             }
 
             .contact-container {
-                padding: 25px;
+                padding: 10px 0;
+                margin-top: 2vh;
             }
+
+            .input-group label {
+                font-size: 0.85rem;
+            }
+
+            /* Extra adjustments to fix overflowing elements */
+            .hero h1 {
+                font-size: clamp(2.5rem, 12vw, 4.5rem);
+                letter-spacing: 2px;
+                /* Reduced for mobile */
+                text-indent: 2px;
+            }
+
+            .hero .subtitle {
+                font-size: clamp(0.9rem, 4vw, 1.2rem);
+                letter-spacing: 2px;
+                padding: 0 15px;
+            }
+
+            .stack-header {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                letter-spacing: 2px;
+                text-indent: 2px;
+                margin-bottom: 5vh;
+            }
+
+            .marquee-content {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .footer-sec {
+                height: 140vh;
+                /* Reduced from 190vh */
+            }
+        }
+
+        /* --- VECTORS & GRADIENTS SETTINGS --- */
+        .bg-vectors {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            /* Behind everything */
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .vector {
+            position: absolute;
+            animation: floatVector 25s infinite alternate ease-in-out;
+            mix-blend-mode: screen;
+        }
+
+        html.light-mode .vector {
+            mix-blend-mode: multiply;
+        }
+
+        .vector-1 {
+            top: -20%;
+            left: -10%;
+            animation-delay: 0s;
+            width: 60vw;
+            height: auto;
+        }
+
+        .vector-2 {
+            bottom: -20%;
+            right: -10%;
+            animation-delay: -5s;
+            width: 70vw;
+            height: auto;
+        }
+
+        @keyframes floatVector {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: translate(5vw, 10vh) rotate(180deg) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-5vw, 5vh) rotate(360deg) scale(0.95);
+            }
+        }
+
+        .gradient-text-pure {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
         }
     </style>
 </head>
@@ -984,6 +1267,20 @@
     <!-- Background Particles -->
     <canvas id="particles-canvas"></canvas>
 
+    <!-- Background Animated Vectors -->
+    <div class="bg-vectors">
+        <svg class="vector vector-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--accent2)"
+                d="M51.3,-58.5C65.5,-45.5,75.4,-27.5,76.5,-9.3C77.6,8.8,69.9,27.1,57.1,41.9C44.3,56.7,26.4,68,6.8,62.2C-12.8,56.4,-34.1,33.5,-46.8,12.3C-59.5,-8.9,-63.5,-28.5,-54.6,-43.3C-45.7,-58.1,-23.9,-68,-2.6,-64.9C18.7,-61.8,37.1,-71.5,51.3,-58.5Z"
+                transform="translate(100 100)" style="opacity:0.35; filter: blur(35px);" />
+        </svg>
+        <svg class="vector vector-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--accent)"
+                d="M48,-69.5C60.3,-56.3,66.9,-37.5,71.2,-19.1C75.5,-0.6,77.5,17.4,69.7,31.7C61.8,46,44.1,56.6,26.1,63.1C8,69.5,-10.4,71.7,-25.1,65C-39.8,58.4,-50.8,42.8,-60.1,26C-69.4,9.2,-77,-8.8,-73.4,-25C-69.8,-41.2,-55.1,-55.6,-39.8,-67.2C-24.6,-78.9,-8.8,-87.8,5.4,-93.8C19.6,-99.8,35.6,-82.7,48,-69.5Z"
+                transform="translate(100 100)" style="opacity:0.4; filter: blur(40px);" />
+        </svg>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
@@ -991,6 +1288,7 @@
     <!-- Navigation Menu -->
     <nav class="nav-wrapper">
         <a href="#home" class="nav-link magnetic-btn interactable-area">Home</a>
+        <a href="#about" class="nav-link magnetic-btn interactable-area">About</a>
         <a href="#projects-list" class="nav-link magnetic-btn interactable-area">Projects</a>
         <a href="#expertise" class="nav-link magnetic-btn interactable-area">Expertise</a>
         <a href="#contact" class="nav-link magnetic-btn interactable-area">Contact</a>
@@ -1017,7 +1315,8 @@
         </button>
     </nav>
 
-    <main id="smooth-wrapper" style="overflow-x: hidden; width: 100%;">
+
+    <main id="smooth-wrapper">
         <!-- 1. Parallax Hero -->
         <section class="hero interactable-area" data-cursor="hero" id="home">
             <div class="hero-bg-wrapper">
@@ -1028,8 +1327,10 @@
                 <div class="line"><span class="hero-title-text">RAMANPREET</span></div>
                 <div class="line"><span class="hero-title-text">SINGH</span></div>
             </h1>
-            <p class="subtitle hero-parallax-target" data-speed="1.5"><span class="subtitle-text">Graphic Designer & Web
-                    Developer</span></p>
+            <p class="subtitle hero-parallax-target" data-speed="1.5">
+                <span class="subtitle-text" data-text="Web Developer & Graphic Designer"></span><span
+                    class="typing-cursor"></span>
+            </p>
         </section>
 
         <!-- Dynamic Scrolling Marquee -->
@@ -1046,6 +1347,24 @@
             </div>
         </div>
 
+        <!-- About Section -->
+        <section class="about-section interactable-area" id="about">
+            <div class="about-content">
+                <h2 class="about-header split-chars">ABOUT ME</h2>
+                <div class="about-details">
+                    <p class="about-text split-lines">
+                        I am <span class="highlight">Ramanpreet Singh</span>, a Full-Stack Web Developer
+                        hailing from <span class="highlight">Fatehgarh Sahib, Punjab</span>. With practical freelance
+                        experience spanning over <span class="highlight">two years</span>, I specialize in bridging the
+                        gap between compelling aesthetics and modern technology. My expertise encompasses immersive
+                        <span class="highlight">Video Editing</span> and precision-driven <span class="highlight">Web
+                            Development</span>, allowing me to craft premium, sophisticated digital
+                        experiences.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- 2. Minimal Projects List -->
         <section class="list-section interactable-area" id="projects-list">
             <div class="list-header">RECENT PROJECTS</div>
@@ -1056,6 +1375,7 @@
                     <h2 class="split-chars">Zyroid Mobiles</h2>
                 </a>
                 <p>HTML, CSS, JS, PHP, MySQL
+                    <a href="https://zyroidmobiles.infinityfree.me/" target="_blank" class="preview-btn">Check Live</a>
                     <a href="https://youtu.be/kWxttnrjUxo" target="_blank" class="preview-btn">Preview</a>
                 </p>
             </div>
@@ -1065,14 +1385,26 @@
                     style="text-decoration: none; color: inherit;">
                     <h2 class="split-chars">Responsive Theme</h2>
                 </a>
-                <p>HTML, CSS, Bootstrap</p>
+                <p>HTML, CSS, Bootstrap
+                    <a href="https://aepxine.github.io/Responsive_Web/" target="_blank" class="preview-btn">Check
+                        Live</a>
+                </p>
             </div>
 
-            <div class="list-item" data-index="2">
-                <a href="https://aepxine-amv.carrd.co/" target="_blank" style="text-decoration: none; color: inherit;">
+        </section>
+
+        <!-- 2.5 Video Editing Projects -->
+        <section class="list-section interactable-area" id="video-projects">
+            <div class="list-header">VIDEO EDITING WORKS</div>
+
+            <div class="list-item" data-index="0">
+                <a href="https://own-raman.carrd.co/" target="_blank" style="text-decoration: none; color: inherit;">
                     <h2 class="split-chars">Video Edit Reel</h2>
                 </a>
-                <p>Premiere Pro & After Effects</p>
+                <p>Premiere Pro & After Effects
+                    <a href="https://own-raman.carrd.co/" target="_blank" class="preview-btn">Check My Video Editing
+                        Works</a>
+                </p>
             </div>
         </section>
 
@@ -1083,31 +1415,73 @@
             <div class="card card-stack">
                 <div class="card-content">
                     <h3 class="split-chars">01. LANGUAGES</h3>
-                    <div class="split-lines" style="line-height: 2.2;">
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
-                                class="sw-icon" alt="HTML5"> HTML</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
-                                class="sw-icon" alt="CSS3"> CSS</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-                                class="sw-icon" alt="JavaScript"> JavaScript</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                                class="sw-icon" alt="React JS"> React JS</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg"
-                                class="sw-icon" alt="Bootstrap"> Bootstrap</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
-                                class="sw-icon" alt="PHP"> PHP</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
-                                class="sw-icon" alt="MySQL"> MySQL</span>
-                        <span class="sw-item"><img
-                                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg"
-                                class="sw-icon" alt="Laravel"> Laravel</span>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                                        class="sw-icon" alt="HTML5"> HTML</span>
+                                <span class="skill-pct">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                                        class="sw-icon" alt="CSS3"> CSS</span>
+                                <span class="skill-pct">81%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="81"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                                        class="sw-icon" alt="JavaScript"> JavaScript</span>
+                                <span class="skill-pct">78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="78"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg"
+                                        class="sw-icon" alt="Bootstrap"> Bootstrap</span>
+                                <span class="skill-pct">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"
+                                        class="sw-icon" alt="PHP"> PHP</span>
+                                <span class="skill-pct">89%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="89"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                                        class="sw-icon" alt="MySQL"> MySQL</span>
+                                <span class="skill-pct">91%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="91"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1115,28 +1489,73 @@
             <div class="card card-stack">
                 <div class="card-content">
                     <h3 class="split-chars">02. SOFTWARE</h3>
-                    <div class="split-lines" style="line-height: 2.2;">
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
-                                class="sw-icon" alt="VS Code"> VS Code</span>
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
-                                class="sw-icon" alt="Photoshop"> Photoshop</span>
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg"
-                                class="sw-icon" alt="Premiere Pro"> Premiere Pro</span>
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg"
-                                class="sw-icon" alt="InDesign"> InDesign</span>
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"
-                                class="sw-icon" alt="Illustrator"> Illustrator</span>
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg"
-                                class="sw-icon" alt="After Effects"> After Effects</span>
-                        <span class="sw-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Adobe_Animate_icon.svg"
-                                class="sw-icon" alt="Animate CC"> Animate CC</span>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
+                                        class="sw-icon" alt="Photoshop"> Photoshop</span>
+                                <span class="skill-pct">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"
+                                        class="sw-icon" alt="Illustrator"> Illustrator</span>
+                                <span class="skill-pct">87%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="87"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg"
+                                        class="sw-icon" alt="After Effects"> After Effects</span>
+                                <span class="skill-pct">94%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="94"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg"
+                                        class="sw-icon" alt="Premiere Pro"> Premiere Pro</span>
+                                <span class="skill-pct">93%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="93"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg"
+                                        class="sw-icon" alt="InDesign"> InDesign</span>
+                                <span class="skill-pct">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="60"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Adobe_Animate_icon.svg"
+                                        class="sw-icon" alt="Animate CC"> Animate CC</span>
+                                <span class="skill-pct">62%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="62"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1144,15 +1563,56 @@
             <div class="card card-stack">
                 <div class="card-content">
                     <h3 class="split-chars">03. EXPERIENCE</h3>
-                    <p class="split-lines">1 Year Video Editing.<br>1 Year Website Front-End Development.</p>
+                    <p class="split-lines">1+ Year in Advanced Video Editing & Motion Design.</p>
+                </div>
+            </div>
+
+            <div class="card card-stack">
+                <div class="card-content">
+                    <h3 class="split-chars">04. LEARNING LANGUAGES</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                        class="sw-icon" alt="React JS"> React JS</span>
+                                <span class="skill-pct">70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="70"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg"
+                                        class="sw-icon" alt="Laravel"> Laravel</span>
+                                <span class="skill-pct">78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="78"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name"><img
+                                        src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                                        class="sw-icon" alt="Tailwind CSS"> Tailwind CSS</span>
+                                <span class="skill-pct">50%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" data-progress="50"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 4. 3D Scroll Perspective Footer -->
         <section class="footer-sec interactable-area" id="contact">
-            <p class="contact-label split-chars">GET IN TOUCH</p>
-            <h1 class="footer-text">LET'S BUILD<br><span>THE FUTURE</span></h1>
+            <p class="contact-label split-chars">CONTACT US</p>
+            <h1 class="footer-text">GET IN<br><span>TOUCH</span></h1>
             <p class="contact-description split-lines">Have a project in mind or just want to say hi? Feel free to reach
                 out using the form below.</p>
 
@@ -1209,13 +1669,25 @@
             new SplitType(el, { types: 'lines' });
         });
 
-        // 1. Lenis Smooth Scroll Boilerplate
+        // 1. Lenis Smooth Scroll Setup
         const lenis = new Lenis({
-            smooth: true,
-            duration: 1.5,
+            wrapper: window,
+            content: document.querySelector('#smooth-wrapper'),
+            smoothWheel: true,
+            smoothTouch: false,
+            duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
         });
 
+        // GSAP & ScrollTrigger Config
+        ScrollTrigger.normalizeScroll({
+            allowNestedScroll: true,
+            momentum: false
+        });
+
+        ScrollTrigger.config({ ignoreMobileResize: true });
+
+        // Ensure GSAP ScrollTrigger works perfectly with Lenis
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => { lenis.raf(time * 1000) });
         gsap.ticker.lagSmoothing(0);
@@ -1253,19 +1725,24 @@
         function playIntro() {
             const tl = gsap.timeline();
 
-            // Slide out preloader
-            tl.to('.preloader', {
-                yPercent: -100,
-                duration: 1.5,
-                ease: 'power4.inOut',
-                delay: 0.2
+            // Premium Fade & Clip-Path Reveal
+            tl.to('.preloader-text span, .preloader-counter', {
+                opacity: 0,
+                scale: 0.9,
+                duration: 0.6,
+                ease: 'power3.inOut'
             })
-                // Reveal Nav Wrapper
+                .to('.preloader', {
+                    clipPath: 'circle(0% at 50% 50%)',
+                    duration: 1.5,
+                    ease: 'power4.inOut'
+                })
+                // Reveal Nav Wrapper & Floating Links
                 .to('.nav-wrapper', {
                     opacity: 1,
                     duration: 0.1
                 }, "-=1.0")
-                // Nav Links Fall Down
+                // Nav Links & Floating Icons Fall Down
                 .from('.nav-link, .theme-toggle-btn', {
                     y: -30,
                     opacity: 0,
@@ -1282,15 +1759,38 @@
                     stagger: 0.1,
                     ease: 'power4.out'
                 }, "-=0.8")
-                // Fade & slide Hero Subtitle
-                .from('.subtitle-text', {
+                // Fade & slide container, then start typing immediately
+                .from('.subtitle', {
                     y: 20,
                     opacity: 0,
                     duration: 1,
-                    ease: 'power3.out'
+                    ease: 'power3.out',
+                    onComplete: () => {
+                        const target = document.querySelector('.subtitle-text');
+                        if (!target.classList.contains('typed')) {
+                            target.classList.add('typed');
+                            const text = target.getAttribute('data-text');
+                            target.textContent = '';
+                            let i = 0;
+                            function typeWriter() {
+                                if (i < text.length) {
+                                    target.textContent += text.charAt(i);
+                                    i++;
+                                    setTimeout(typeWriter, 50);
+                                } else {
+                                    // Refresh ScrollTrigger after content is fully laid out
+                                    ScrollTrigger.refresh();
+                                }
+                            }
+                            typeWriter();
+                        }
+                    }
                 }, "-=0.8");
 
             initScrollAnimations();
+
+            // Initial refresh
+            ScrollTrigger.refresh();
         }
 
         function initScrollAnimations() {
@@ -1396,56 +1896,39 @@
             });
         });
 
-        const contactCard = document.querySelector('.contact-container');
-        if (contactCard) {
-            contactCard.addEventListener('mousemove', (e) => {
-                const rect = contactCard.getBoundingClientRect();
-                const xPct = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-                const yPct = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-                gsap.to(contactCard, { rotateX: yPct * -8, rotateY: xPct * 8, ease: "power2.out", duration: 0.5 });
-            });
-            contactCard.addEventListener('mouseleave', () => {
-                gsap.to(contactCard, { rotateX: 0, rotateY: 0, ease: "elastic.out(1, 0.3)", duration: 1.5 });
-            });
-        }
+        // Removed 3D card tilt animation for contact container
 
         // Add this back to initScrollAnimations
         const originalInit = initScrollAnimations;
         initScrollAnimations = function () {
             originalInit();
 
-            // --- PREMIUM STACKING CARD ANIMATION ---
+            // --- PREMIUM CARD REVEAL ANIMATION ---
             const cards = gsap.utils.toArray('.card');
-            cards.forEach((card, i) => {
-                if (i === cards.length - 1) return;
-                const nextCard = cards[i + 1];
-                gsap.to(card, {
-                    scrollTrigger: {
-                        trigger: nextCard,
-                        start: "top 85%",
-                        end: "top 15%",
-                        scrub: true,
-                    },
-                    scale: 0.9 - (i * 0.02),
-                    opacity: 0.3,
-                    filter: "blur(10px)",
-                    y: -50,
-                    ease: "none"
-                });
-            });
 
-            cards.forEach((card) => {
+            cards.forEach((card, i) => {
+                // Alternate direction for more dynamic feel
+                const isEven = i % 2 === 0;
+
+                // Set initial transform perspective
+                gsap.set(card, { perspective: 1000, transformStyle: "preserve-3d" });
+
                 gsap.from(card, {
                     scrollTrigger: {
                         trigger: card,
-                        start: "top 95%",
+                        start: "top 90%",
+                        end: "top 40%",
+                        scrub: 1.5,
                         toggleActions: "play none none reverse"
                     },
-                    y: 100,
+                    y: 150,
+                    x: isEven ? -50 : 50,
+                    rotateY: isEven ? 5 : -5,
+                    rotateX: 10,
                     opacity: 0,
-                    scale: 0.8,
-                    duration: 1.2,
-                    ease: "expo.out"
+                    scale: 0.85,
+                    filter: "blur(15px)",
+                    ease: "power2.out"
                 });
             });
 
@@ -1507,21 +1990,120 @@
                         ease: "power4.out"
                     }, "-=0.5");
             }
+
+            // --- ABOUT SECTION ANIMATION ---
+            const aboutSec = document.querySelector('.about-section');
+            if (aboutSec) {
+                const aboutTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: '.about-section',
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+
+                aboutTl.from('.about-header .char', {
+                    y: 100,
+                    opacity: 0,
+                    rotateX: -90,
+                    stagger: 0.05,
+                    duration: 1,
+                    ease: "power4.out"
+                })
+                    .from('.about-text .line', {
+                        y: 50,
+                        opacity: 0,
+                        stagger: 0.1,
+                        duration: 1.2,
+                        ease: "power3.out"
+                    }, "-=0.6");
+            }
+
+            // --- PROGRESS BAR ANIMATIONS ---
+            const progressFills = gsap.utils.toArray('.progress-fill');
+            progressFills.forEach(fill => {
+                const targetWidth = fill.getAttribute('data-progress') + "%";
+                gsap.to(fill, {
+                    width: targetWidth,
+                    duration: 1.5,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: fill,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+            // --- EXPERTISE HEADER ANIMATION (GRIFLAN STYLE MASKED REVEAL) ---
+            const stackHeader = document.querySelector('.stack-header');
+            if (stackHeader) {
+                const headerChars = stackHeader.querySelectorAll('.char');
+                gsap.set(stackHeader, { overflow: 'hidden' });
+                gsap.from(headerChars, {
+                    scrollTrigger: {
+                        trigger: stackHeader,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    yPercent: 120,
+                    stagger: 0.04,
+                    duration: 0.8,
+                    ease: "power4.out"
+                });
+            }
         }
 
-        // --- POPULAR SCROLL REVEAL ANIMATIONS (LIST ITEMS) ---
-        gsap.utils.toArray('.list-item').forEach((item) => {
-            gsap.from(item, {
+        // --- PREMIUM GRIFLAN-STYLE SCROLL REVEAL ANIMATIONS (LIST ITEMS & HEADERS) ---
+        gsap.utils.toArray('.list-header').forEach((header) => {
+            gsap.from(header, {
                 scrollTrigger: {
-                    trigger: item,
-                    start: "top 85%",
+                    trigger: header,
+                    start: "top 90%",
                     toggleActions: "play none none reverse"
                 },
-                y: 50,
+                x: -30,
                 opacity: 0,
                 duration: 0.8,
                 ease: "power3.out"
             });
+        });
+
+        gsap.utils.toArray('.list-item').forEach((item) => {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            // If it has split characters, animate them with a Griflan-style staggered mask slide
+            const chars = item.querySelectorAll('.char');
+            if (chars.length > 0) {
+                // Ensure parent has overflow hidden for masking effect
+                gsap.set(item.querySelector('h2'), { overflow: 'hidden' });
+
+                tl.from(chars, {
+                    yPercent: 120,    // Slide up from bottom
+                    stagger: 0.03,    // Fast typewriter crisp stagger
+                    duration: 0.8,
+                    ease: "power4.out"
+                })
+                    .from(item.querySelector('p'), {
+                        y: 20,
+                        opacity: 0,
+                        duration: 0.6,
+                        ease: "power3.out"
+                    }, "-=0.5");
+            } else {
+                // Fallback smooth fade for items without split chars
+                tl.from(item, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            }
         });
 
         // --- THEME TOGGLE LOGIC ---
@@ -1644,7 +2226,10 @@
             requestAnimationFrame(animateParticles);
         }
 
-        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            ScrollTrigger.refresh();
+        });
         resizeCanvas();
         initParticles();
         animateParticles();
@@ -1662,6 +2247,3 @@
     <!-- Connect form handler -->
     <script src="script.js"></script>
 </body>
-
-</html>
-
